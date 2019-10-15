@@ -14,22 +14,22 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("w"))
+        if (Input.GetKey("w"))
         {
             CharacterRB.AddForce(Vector3.forward * CharacterMF);
         }
 
-        if (Input.GetKeyDown("s"))
+        if (Input.GetKey("s"))
         {
             CharacterRB.AddForce(Vector3.back * CharacterMF);
         }
 
-        if (Input.GetKeyDown("a"))
+        if (Input.GetKey("a"))
         {
             CharacterRB.AddForce(Vector3.left * CharacterMF);
         }
 
-        if (Input.GetKeyDown("d"))
+        if (Input.GetKey("d"))
         {
             CharacterRB.AddForce(Vector3.right * CharacterMF);
         }
