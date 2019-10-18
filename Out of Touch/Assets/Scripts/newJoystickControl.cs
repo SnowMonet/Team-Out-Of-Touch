@@ -16,9 +16,15 @@ public class newJoystickControl : MonoBehaviour
 
     public Rigidbody myRb;
 
+    private Vector3 CamForward;
+    private Transform mainCam;
+
+    private Vector3 rightDirection;
+
     // Start is called before the first frame update
     void Start()
     {
+        mainCam = Camera.main.transform;
 
         myRb = GetComponent<Rigidbody>();
         joystick = FindObjectOfType<Joystick>();
@@ -28,9 +34,16 @@ public class newJoystickControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // calculate camera relative direction to move:
+        CamForward = Vector3.Scale(mainCam.forward, new Vector3(1, 0, 1)).normalized;
+        //Move = Vinput * CamForward + Hinput * mainCam.right;
         
-        myRb.velocity = new Vector3(joystick.Horizontal * veloRate, myRb.velocity.y, joystick.Vertical * veloRate);
-  
+        rightDirection = joystick.Vertical * CamForward + joystick.Horizontal * mainCam.right;
+
+        //myRb.velocity = new Vector3(joystick.Horizontal * veloRate, myRb.velocity.y, joystick.Vertical * veloRate);
+
+        myRb.velocity = rightDirection * veloRate;
+
         CameraAngle += TouchField.TouchDist.x * CameraAngleSpeed;
        
 
