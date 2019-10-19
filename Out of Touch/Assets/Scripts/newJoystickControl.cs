@@ -48,9 +48,13 @@ public class newJoystickControl : MonoBehaviour
         //camera swipe
 
         CameraAngle += TouchField.TouchDist.x * CameraAngleSpeed;
-       
-        Camera.main.transform.position = transform.parent.parent.position + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0, 12, -18);
-        Camera.main.transform.rotation = Quaternion.LookRotation(transform.parent.parent.position + Vector3.up * 2f - Camera.main.transform.position, Vector3.up);
+
+        //Camera.main.transform.position = transform.position + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0, 12, -18);
+        //parent.parent.parent.parent.
+        Camera.main.transform.position = transform.parent.parent.parent.parent.position 
+                                         + Quaternion.AngleAxis(CameraAngle, Vector3.up) * new Vector3(0, 12, -30);
+        Camera.main.transform.rotation = Quaternion.LookRotation(transform.parent.parent.parent.parent.position
+                                         + Vector3.up * 7f - Camera.main.transform.position, Vector3.up);
         
 
     }

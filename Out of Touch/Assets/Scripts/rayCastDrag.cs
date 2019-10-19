@@ -11,6 +11,8 @@ public class rayCastDrag : MonoBehaviour
 
     [SerializeField]
     private LayerMask layerMask;
+
+    bool isCarrying = false;
     
 
     void Start()
@@ -41,7 +43,7 @@ public class rayCastDrag : MonoBehaviour
 
        // RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, maxDistance, layerMask))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, maxDistance, layerMask) && !isCarrying)
         {
            
             raycastHit.collider.GetComponent<Renderer>().material.color = Color.green;
@@ -49,14 +51,14 @@ public class rayCastDrag : MonoBehaviour
             //makeConnection();
 
             raycastHit.collider.GetComponent<Rigidbody>().mass = 1;
-            raycastHit.collider.GetComponent<Rigidbody>().useGravity = false;
-            raycastHit.collider.GetComponent<Rigidbody>().isKinematic = true;
-            raycastHit.collider.gameObject.AddComponent<SpringJoint>();
-            raycastHit.collider.GetComponent<SpringJoint>().connectedBody = GameObject.Find("Bone").GetComponent<Rigidbody>();
+            raycastHit.collider.GetComponent<Rigidbody>().useGravity = true;
+            //raycastHit.collider.GetComponent<Rigidbody>().isKinematic = true;
+            raycastHit.collider.gameObject.AddComponent<FixedJoint>();
+            raycastHit.collider.GetComponent<FixedJoint>().connectedBody = GameObject.Find("Fingers.r.002").GetComponent<Rigidbody>();
 
             // myOriginHolder.gameObject.AddComponent<FixedJoint>();
             // myOriginHolder.GetComponent<FixedJoint>().connectedBody = raycastHit.collider.GetComponent<Rigidbody>();
-
+            isCarrying = true;
         }
 
        // bool result = Physics.Raycast(ray, out hitInfo, maxDistance);

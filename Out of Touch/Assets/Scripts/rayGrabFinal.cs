@@ -15,6 +15,7 @@ public class rayGrabFinal : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
+    bool isCarrying = false;
 
     void Start()
     {
@@ -44,7 +45,7 @@ public class rayGrabFinal : MonoBehaviour
 
         // RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, maxDistance, layerMask))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, maxDistance, layerMask) && !isCarrying)
         {
 
             raycastHit.collider.GetComponent<Renderer>().material.color = Color.green;
@@ -78,10 +79,13 @@ public class rayGrabFinal : MonoBehaviour
             //emptyJointHolder.GetComponent<Transform>().SetParent(greatGrandChildGrabbyHand.gameObject);
             //player.transform.parent = newParent.transform;
             emptyJointHolder.transform.parent = greatGrandChildGrabbyHand.transform;
+            emptyJointHolder.GetComponent<Rigidbody>().isKinematic = true;
+            //emptyJointHolder.GetComponent<Rigidbody>().useGravity = false;
 
             raycastHit.collider.GetComponent<Collider>().GetComponent<Rigidbody>().mass = 1;
-            raycastHit.collider.GetComponent<Collider>().GetComponent<Rigidbody>().useGravity = false;
-            raycastHit.collider.GetComponent<Collider>().GetComponent<Rigidbody>().isKinematic = true;
+            // raycastHit.collider.GetComponent<Collider>().GetComponent<Rigidbody>().useGravity = false;
+            // raycastHit.collider.GetComponent<Collider>().GetComponent<Rigidbody>().isKinematic = true;
+            isCarrying = true;
 
             //box = raycastHit.collider.gameObject;
             //box.AddComponent<newJoystickControl>();//.enabled;// = (true);
